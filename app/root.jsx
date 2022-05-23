@@ -36,8 +36,20 @@ export default function App() {
           <Link to="/" className="hover:underline text-blue-600">
             Home
           </Link>
-          <Link to="/books/new" className="ml-3 hover:underline text-blue-600">
-            New book
+          <Link to="/profiles/new" className="ml-3 hover:underline text-blue-600">
+            New Profile
+          </Link>
+          <Link to="/login" className="ml-3 hover:underline text-blue-600">
+            Log in
+          </Link>
+          <Link to="/logout'" className="ml-3 hover:underline text-blue-600">
+            Log out
+          </Link>
+          <Link to="/logout'" className="ml-3 hover:underline text-blue-600">
+            Register
+          </Link>
+          <Link to="/seed'" className="ml-3 hover:underline text-blue-600">
+            Database Seeding
           </Link>
         </header>
         <Outlet />

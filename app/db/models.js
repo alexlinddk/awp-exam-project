@@ -2,21 +2,37 @@ import { mongoose } from "mongoose";
 
 const { Schema } = mongoose;
 
-const bookSchema = new Schema(
+const profileSchema = new Schema(
   {
-    title: {
+    profileImg: {
       type: String,
       required: true,
-      minLength: [3, "That's too short"],
     },
+    bio: {
+      type: String,
+    },
+    tags: [
+      {
+        type: String,
+      }
+    ],
+    linkedIn: {
+      type: String,
+    },
+    personalWeb: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+    }
   },
   { timestamps: true }
 );
 
 export const models = [
   {
-    name: "Book",
-    schema: bookSchema,
-    collection: "books",
+    name: "Profile",
+    schema: profileSchema,
+    collection: "profiles",
   },
 ];
