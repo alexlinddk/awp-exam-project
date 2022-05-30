@@ -12,33 +12,42 @@ export default function Index() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Remix + Mongoose</h1>
-      <h2 className="text-lg font-bold mb-3">
-        Here are a few of my favorite profiles:
-      </h2>
-      <ul className="ml-5 list-disc">
+      <h1 className="text-2xl font-bold mb-4">Profiles</h1>
+      <div class="grid grid-cols-4 gap-7">
         {profiles.map((profile) => {
           return (
-            <li key={profile._id}>
+            <div key={profile._id} className="shadow-lg text-center">
+              <div className="h-80">
+                <img className="h-full" src={`${profile.profileImg}`} />
+              </div>
+              <div className="p-5 mb-6">
+                <p className="text-2xl font-bold mb-3">{profile.name}</p>
+                <p className="truncate ...">{profile.bio}</p>
+              </div>
               <div>
-                <img src={`${profile.profileImg}`} />
                 <ul>
-                  <p>{profile.bio}</p>
                   {profile.tags.map((tag) => {
-                    <li>{tag}</li>
+                    <li>
+                      <p className="">{tag}</p>
+                    </li>
                   })}
                 </ul>
-                <p>{profile.createdAt}</p>
+              </div>
+              <div className="mb-4 flex place-content-evenly">
+                <a href={`${profile.linkedId}`}><i class="fa-brands fa-linkedin fa-2xl mb-4"></i><br />LinkedIn</a>
+                <a href={`${profile.personalWeb}`}><i class="fa-solid fa-user fa-2xl mb-4"></i><br />Perosnal Website</a>
               </div>
               <Link
                 to={`/profiles/${profile._id}`}
-                className="text-blue-600 hover:underline">
-                {profile._id}
+                className="text-white hover:opacity-75">
+                <div className="bg-black place-self-end font-bold p-5 text-lg">
+                  Visit profile <i class="fa-solid fa-chevron-right fa-lg"></i>
+                </div>
               </Link>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div >
   );
 }

@@ -11,11 +11,7 @@ const profileSchema = new Schema(
     bio: {
       type: String,
     },
-    tags: [
-      {
-        type: String,
-      }
-    ],
+    // tags: [tagSchema],
     linkedIn: {
       type: String,
     },
@@ -24,10 +20,17 @@ const profileSchema = new Schema(
     },
     createdAt: {
       type: Date,
+      timestamps: true
     }
   },
   { timestamps: true }
 );
+
+// const tagSchema = new Schema({
+//   tag: {
+//     type: String,
+//   },
+// });
 
 export const models = [
   {
@@ -35,4 +38,9 @@ export const models = [
     schema: profileSchema,
     collection: "profiles",
   },
+  // {
+  //   name: "Tag",
+  //   schema: tagSchema,
+  //   collection: "tags"
+  // }
 ];

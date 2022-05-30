@@ -16,11 +16,27 @@ export async function loader({ params }) {
 export default function ProfilePage() {
   const profile = useLoaderData();
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">{profile.title}</h1>
-      <code>
-        <pre>{JSON.stringify(profile, null, 2)}</pre>
-      </code>
+    <div className="container mx-auto w-1/2 shadow-md">
+      <div className="overflow-hidden">
+        <img src={`${profile.profileImg}`} />
+      </div>
+      <div className="mb-11 p-10">
+        <p>{profile.bio}</p>
+      </div>
+      <div className="mb-11">
+        <ul>
+          {profile.tags.map((tag) => {
+            <li>
+              <p>{tag}</p>
+            </li>
+          })}
+        </ul>
+      </div>
+      <div className="mb-11 flex justify-center">
+        <a className="mx-6 text-center" href={`${profile.linkedId}`}><i class="fa-brands fa-linkedin fa-2xl mb-4"></i><br />LinkedIn</a>
+        <a className="mx-6 text-center" href={`${profile.personalWeb}`}><i class="fa-solid fa-user fa-2xl mb-4"></i><br />Perosnal Website</a>
+      </div>
+      <p className="mx-auto p-6 text-center">{profile.createdAt}</p>
     </div>
   );
 }

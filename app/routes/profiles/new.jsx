@@ -8,6 +8,7 @@ export async function action({ request }) {
   try {
     const newProfile = await db.models.Profile.create({ 
       profileImg: form.get("profileImg"), 
+      name: form.get("name"), 
       bio: form.get("bio"), 
       tags: form.get("tags"),
       linkedIn: form.get("linkedIn"), 
@@ -32,7 +33,7 @@ export default function CreateProfile() {
           Profile Picture:
         </label>
         <input
-          type="file"
+          type="text"
           name="profileImg"
           id="profileImg"
           defaultValue={actionData?.values.profileImg}
@@ -43,6 +44,24 @@ export default function CreateProfile() {
         {actionData?.errors.profileImg && (
           <p className="text-red-500 mt-1 mb-0">
             {actionData.errors.profileImg.message}
+          </p>
+        )}
+        <br />
+        <label htmlFor="name" className="block font-semibold mb-1">
+          Name:
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          defaultValue={actionData?.values.name}
+          className={
+            actionData?.errors.name ? "border-2 border-red-500" : null
+          }
+        />
+        {actionData?.errors.name && (
+          <p className="text-red-500 mt-1 mb-0">
+            {actionData.errors.name.message}
           </p>
         )}
         <br />

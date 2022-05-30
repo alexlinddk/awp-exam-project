@@ -30,6 +30,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <script src="https://kit.fontawesome.com/504197f8e5.js" crossorigin="anonymous"></script>
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
         <header className="pb-3 mb-4 border-b-2">
