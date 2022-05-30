@@ -2,6 +2,10 @@ import { mongoose } from "mongoose";
 
 const { Schema } = mongoose;
 
+const tagSchema = new Schema({
+    type: String,
+});
+
 const profileSchema = new Schema(
   {
     profileImg: {
@@ -11,7 +15,7 @@ const profileSchema = new Schema(
     bio: {
       type: String,
     },
-    // tags: [tagSchema],
+    tags: [tagSchema],
     linkedIn: {
       type: String,
     },
@@ -26,11 +30,6 @@ const profileSchema = new Schema(
   { timestamps: true }
 );
 
-// const tagSchema = new Schema({
-//   tag: {
-//     type: String,
-//   },
-// });
 
 export const models = [
   {
@@ -38,9 +37,9 @@ export const models = [
     schema: profileSchema,
     collection: "profiles",
   },
-  // {
-  //   name: "Tag",
-  //   schema: tagSchema,
-  //   collection: "tags"
-  // }
+  {
+    name: "Tag",
+    schema: tagSchema,
+    collection: "tags"
+  }
 ];

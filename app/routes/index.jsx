@@ -4,6 +4,8 @@ import connectDb from "~/db/connectDb.server.js";
 export async function loader() {
   const db = await connectDb();
   const profiles = await db.models.Profile.find();
+  const tags = await db.models.Tag.find();
+
   return profiles;
 }
 
