@@ -13,8 +13,18 @@ export async function loader({ params }) {
   return json(profile);
 }
 
+export const action = async function ({ request, params }) {
+  const form = await request.formData();
+  if (form.get("_method") === "delete") {
+    // TODO: Create an API route and send a DELETE request to it
+    db.models.Profile.findByIdAndDelete(params.profileId);
+    return redirect("/profiles");
+  }
+};
+
 export default function ProfilePage() {
   const profile = useLoaderData();
+
   return (
     <div className="container mx-auto w-1/2 shadow-md">
       <div className="overflow-hidden">
@@ -37,7 +47,14 @@ export default function ProfilePage() {
         <a className="mx-6 text-center" href={`${profile.personalWeb}`}><i class="fa-solid fa-user fa-2xl mb-4"></i><br />Perosnal Website</a>
       </div>
       <p className="mx-auto p-6 text-center">{profile.createdAt}</p>
+      <form method="post" className="mt-5 pt-2 border-t border-gray-200">
+        <input type="hidden" name="_method" value="delete" />
+        <Button type="submit" destructive>
+          Delete
+        </Button>
+      </form>
     </div>
+
   );
 }
 

@@ -2,6 +2,22 @@ import { mongoose } from "mongoose";
 
 const { Schema } = mongoose;
 
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      unique: true,
+      required: [true, "Gotta have a username"],
+      minLength: [3, "That's too short"],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 const tagSchema = new Schema({
     type: String,
 });
@@ -25,7 +41,13 @@ const profileSchema = new Schema(
     createdAt: {
       type: Date,
       timestamps: true
+    },
+    userId: {
+      type: { type: Schema.Types.ObjectId, ref: 'User' },
+
     }
+        // TODO: add a `userId` property of type Schema.Types.ObjectId with a `ref` to the User model:
+    // https://mongoosejs.com/docs/populate.html
   },
   { timestamps: true }
 );
@@ -41,5 +63,10 @@ export const models = [
     name: "Tag",
     schema: tagSchema,
     collection: "tags"
+  },
+  {
+    name: "User",
+    schema: userSchema,
+    collection: "users"
   }
 ];
