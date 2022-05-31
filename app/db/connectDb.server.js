@@ -15,14 +15,9 @@ if (!MONGODB_URL) {
   }
 }
 
-// We reuse any existing Mongoose db connection to avoid creating multiple
-// connections in dev mode when Remix "purges the require cache" when reloading
-// on file changes.
 export default async function connectDb() {
-  // Reuse the existing Mongoose connection if we have one...
-  // https://mongoosejs.com/docs/api/connection.html#connection_Connection-readyState
+
   if (mongoose.connection.readyState > 0) {
-    // ...but overwrite all models in development to ensure we pick up any changes made in schemas
     if (NODE_ENV === "development") {
       for (const model of models) {
         if (mongoose.connection.models[model.name]) {
@@ -35,7 +30,6 @@ export default async function connectDb() {
     return mongoose.connection;
   }
 
-  // If no connection exists yet, set up event logging...
   mongoose.connection.on("connected", () => {
     console.log("Mongoose connected, NODE_ENV=%s", NODE_ENV);
   });
@@ -44,15 +38,11 @@ export default async function connectDb() {
     console.log("Mongoose DISCONNECTED, NODE_ENV=%s", NODE_ENV);
   });
 
-  // ...and create a new connection:
   await mongoose.connect(MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
 
-  // "Models are always scoped to a single connection."
-  // https://mongoosejs.com/docs/connections.html#multiple_connections
-  // So we set them up here to avoid overwriting and getting errors in dev mode.
   for (const model of models) {
     mongoose.connection.model(model.name, model.schema, model.collection);
   }

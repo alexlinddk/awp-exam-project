@@ -9,12 +9,10 @@ export async function action({ request }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
   if (form.get("password").trim() !== form.get("repeatPassword").trim()) {
-    // TODO: Return a JSON response with an `errorMessage` about the passwords not matching. Status 400?
     return null;
   }
 
   if (form.get("password").trim()?.length < 8) {
-    // TODO: Return a JSON response with an `errorMessage` about the password length. Status 400?
     return null;
   }
 
@@ -27,7 +25,6 @@ export async function action({ request }) {
     });
     if (user) {
       session.set("userId", user._id);
-      // TODO: Return a redirect to the home page which sets a cookie that commits the session
       return null;
     } else {
       return json(
@@ -48,7 +45,6 @@ export async function action({ request }) {
 }
 
 export async function loader({ request }) {
-  // TODO: Check if the session has a userId, and if so; redirect to the homepage
   return null;
 }
 
@@ -60,7 +56,7 @@ export default function Register() {
         <label htmlFor="email" className="block font-semibold mb-1">
           Email:
         </label>
-        <Input
+        <input
           type="email"
           name="email"
           id="email"
@@ -72,7 +68,7 @@ export default function Register() {
         <label htmlFor="email" className="block font-semibold mb-1">
           Password:
         </label>
-        <Input
+        <input
           type="password"
           name="password"
           id="password"
@@ -85,7 +81,7 @@ export default function Register() {
         <label htmlFor="email" className="block font-semibold mb-1">
           Confirm password:
         </label>
-        <Input
+        <input
           type="password"
           name="conPassword"
           id="conPassword"

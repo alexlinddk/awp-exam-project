@@ -1,6 +1,7 @@
 import {
   Links,
   Link,
+  NavLink,
   LiveReload,
   Meta,
   Outlet,
@@ -34,24 +35,21 @@ export default function App() {
       </head>
       <body className="bg-slate-100 text-slate-800 font-sans p-4">
         <header className="pb-3 mb-4 border-b-2">
-          <Link to="/" className="hover:underline text-blue-600">
+          <MenuLink to="/" className="hover:underline text-blue-600">
             Home
-          </Link>
-          <Link to="/profiles/new" className="ml-3 hover:underline text-blue-600">
+          </MenuLink>
+          <MenuLink to="/profiles/new" className="ml-3 hover:underline text-blue-600">
             New Profile
-          </Link>
-          <Link to="/login" className="ml-3 hover:underline text-blue-600">
+          </MenuLink>
+          <MenuLink to="/login" className="ml-3 hover:underline text-blue-600">
             Log in
-          </Link>
-          <Link to="/logout'" className="ml-3 hover:underline text-blue-600">
-            Log out
-          </Link>
-          <Link to="/logout'" className="ml-3 hover:underline text-blue-600">
+          </MenuLink>
+          <MenuLink to="/register" className="ml-3 hover:underline text-blue-600">
             Register
-          </Link>
-          <Link to="/seed'" className="ml-3 hover:underline text-blue-600">
+          </MenuLink>
+          <MenuLink to="/seed" className="ml-3 hover:underline text-blue-600">
             Database Seeding
-          </Link>
+          </MenuLink>
         </header>
         <Outlet />
         <ScrollRestoration />
@@ -59,5 +57,20 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+function MenuLink({ to, className, children }) {
+  return (
+    <NavLink
+      end
+      to={to}
+      className={({ isActive }) =>
+        [className, "hover:underline text-blue-600", isActive && "font-bold"]
+          .filter(Boolean)
+          .join(" ")
+      }>
+      {children}
+    </NavLink>
   );
 }

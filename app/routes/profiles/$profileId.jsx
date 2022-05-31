@@ -1,5 +1,5 @@
-import { useLoaderData, useCatch } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { useLoaderData, useCatch, Form } from "@remix-run/react";
+import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
 
 export async function loader({ params }) {
@@ -16,7 +16,7 @@ export async function loader({ params }) {
 export const action = async function ({ request, params }) {
   const form = await request.formData();
   if (form.get("_method") === "delete") {
-    // TODO: Create an API route and send a DELETE request to it
+    const db = await connectDb();
     db.models.Profile.findByIdAndDelete(params.profileId);
     return redirect("/profiles");
   }
@@ -47,12 +47,12 @@ export default function ProfilePage() {
         <a className="mx-6 text-center" href={`${profile.personalWeb}`}><i class="fa-solid fa-user fa-2xl mb-4"></i><br />Perosnal Website</a>
       </div>
       <p className="mx-auto p-6 text-center">{profile.createdAt}</p>
-      <form method="post" className="mt-5 pt-2 border-t border-gray-200">
+      <Form method="post">
         <input type="hidden" name="_method" value="delete" />
-        <Button type="submit" destructive>
+        <button type="submit" destructive>
           Delete
-        </Button>
-      </form>
+        </button>
+      </Form>
     </div>
 
   );
